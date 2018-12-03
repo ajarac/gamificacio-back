@@ -1,0 +1,176 @@
+"myurl": "students" | "teachers" | "schooladministrators"
+
+=================== MY URL
+/////////// collectionCard
+- This method returns the list of CollectionCards in the school of the current logged in user
+GET /api/:myurl/:idUser/collectionCard
+
+- This method saves the new Collection on DB
+POST /api/:myurl/:idUser/collectionCard
+
+- Method to delete the relation between collection and user
+PUT /api/:myurl/:idUser/collectionCard/:collectionCardId
+
+- Method to update collection
+DELETE /api/:myurl/:idUser/collectionCard/rel/:collectionCardId
+
+/////////// cards
+- Get Assigned Cards
+GET /api/:myurl/:idUser/cards
+
+/////////// Groups
+- Returns the groups with the one level information of the current logged in user into the application
+GET /api/:myurl/:idUser/groups
+
+/////////// QUestionnaries
+- Returns the questionnaires with the one level information of the current logged in user into the application
+GET /api/:myurl/:idUser/questionnaires
+
+/////////// Schools
+- This method returns the current school of the logged in user
+GET /api/:myurl/:idUser/school
+
+/////////// Points
+GET /api/:myurl/:idUser/points
+
+/////////// Badges
+GET /api/:myurl/:idUser/badges
+
+/////////// Profile
+GET /api/:myurl/:idUser
+
+
+=================== STUDENTS
+/////////// Badges
+- This method returns all the relation badges of the student in this group of the current students logged into the application
+GET /api/students/:studentId/badgeRelations
+
+/////////// Points
+- This method returns all the relation points of the student in this group of the current students logged into the application
+GET /api/students/:studentId/pointRelations
+
+=================== SCHOOL
+/////////// Badge Relation
+- Delete badge relations school
+DELETE /api/schools/:id/badgeRelations
+
+/////////// PointRelations
+- Delete point relations school
+DELETE /api/schools/:id/pointRelations
+
+/////////// My School
+- This method construct the current user url depending on the role
+GET /api/schools/:schoolId
+
+=================== AVATAR
+GET /api/avatars/:avatarId
+
+=================== MATTERS
+GET /api/matters/:matterId
+
+=================== GRADES
+GET /api/grades/:gradeId
+
+
+=================== GROUPS
+/////////// MyGroupBadges
+- This method returns all the relation badges of the student in this group of the current students logged into the application
+GET /api/groups/:groupId/badgeRelations
+
+/////////// USERS
+- Returns the list of students by a group id.
+GET /api/groups/:groupId/students
+
+
+/////////// Points
+- This method returns all the relation points of the student in this group of the current students logged into the application
+GET /api/groups/:groupId/pointRelations
+
+=================== QUESTIONNAIRE
+
+GET /api/questionnaires
+GET /api/questionnaires/:id
+POST /api/questionnaires
+PUT /api/questionnaires/:id <== Hay que cambiar el front de patch a put y poner el params.id
+DELETE /api/questionnaires/:id
+
+////////// QuestionnarieQuestion
+POST /api/questionnaires/:questionnaireId/questions
+
+=================== QUESTIONS
+- Create answer in question
+POST /api/questions/:questionId/answers
+
+- Create correct answer
+POST /api/questions/:questionId/correctAnswers
+
+- Get answers of question
+GET /api/questions/:questionId/answers
+
+- Get correct answers of question
+POST /api/questions/:questionId/correctAnswers
+
+
+=================== RESULT QUESTIONNAIRE
+
+GET /api/ResultQuestionnaires/:id/pointRelations
+
+
+=================== POINTS
+- Returns a grade object with all the information from a grade identifier. 
+This method is used to fill all the information of the groups we are querying
+GET /api/points/:id
+
+- This method calls the REST API for performing a post of point against the common services for the application
+POST /api/points
+
+DELETE /api/points/:id
+
+=================== BADGE
+GET /api/badges/:id
+POST /api/badges
+DELETE /api/badges/:id
+
+/////////// BADGES RELATION
+- This method returns all the relation badges of the student in this group of the current students logged into the application
+GET /api/badges/:id/badgeRelations
+
+DELETE /api/badges/:id/badgeRelations
+
+
+==================== POINTRELATION
+POST /api/pointRelations
+
+
+==================== BADGERELATION
+POST /api/badgeRelations
+
+==================== COLLECTIONCARDS
+- This method returns the CollectionCard of the id
+GET /api/collectionCards/:id
+
+GET /api/collectionCards
+
+- This method returns the list of cards of a certain collectionCard
+GET /api/collectionCard/:id/cards
+
+- Method to assign a collection of cards to a group of users
+PUT /api/collectionCard/:collectionId/groups/rel/:groupId
+
+DELETE /api/collectionCard/:collectionCard
+
+GET /api/collectionCard/:collectionId/groups
+
+DELETE /api/collectionCard/:collectionCard/groups/rel/:groupId
+
+POST /api/collectionCard/:id/cards
+
+PUT /api/collectionCard/:collectionCard/students/rel/:studentId
+
+====================== CARDS
+DELETE /api/cards/:cardId
+
+PUT /api/cards/:cardId
+
+PUT /api/cards/:cardId/students/rel/:studentId
+

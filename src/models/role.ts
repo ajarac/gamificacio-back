@@ -1,18 +1,16 @@
 import { Entity, PrimaryGeneratedColumn, Column } from 'typeorm';
 
 @Entity()
-export class Question {
+export class Role {
 	@PrimaryGeneratedColumn('increment') public id: number;
 
 	@Column('varchar', { length: 512 })
 	public name: string;
 
 	@Column('varchar', { length: 512 })
-	public type: string;
+	public description: string;
 
-	@Column('longtext') public image: string;
+	@Column('datetime') public created: any;
 
-	@Column('int') public time: number;
-
-	@Column('int') public questionnaireId: number;
+	@Column('datetime') public modified: any;
 }

@@ -1,13 +1,16 @@
 import { CollectionCard } from './collection-card';
-import { Entity, PrimaryGeneratedColumn, OneToOne, JoinColumn, Column } from "typeorm";
+import { Entity, PrimaryGeneratedColumn, OneToOne, JoinColumn, BaseEntity } from 'typeorm';
+import { Student } from './student';
 
 @Entity()
-export class CollectionCardStudent {
-  @PrimaryGeneratedColumn('increment') public id: number;
+export class CollectionCardStudent extends BaseEntity {
+	@PrimaryGeneratedColumn('increment') public id: number;
 
-  @OneToOne(() => CollectionCard, (collectionCard) => collectionCard.id)
-  @JoinColumn()
-  public collectionCardId: number;
+	@OneToOne(() => CollectionCard)
+	@JoinColumn()
+	public collectionCardId: number;
 
-  @Column('int') public studentId: number;
-} 
+	@OneToOne(() => Student)
+	@JoinColumn()
+	public studentId: number;
+}

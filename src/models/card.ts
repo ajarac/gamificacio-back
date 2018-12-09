@@ -1,7 +1,8 @@
-import { Entity, PrimaryGeneratedColumn, Column } from 'typeorm';
+import { CollectionCard } from './collection-card';
+import { Entity, PrimaryGeneratedColumn, Column, OneToOne, JoinColumn, BaseEntity } from 'typeorm';
 
 @Entity()
-export class Card {
+export class Card extends BaseEntity {
 	@PrimaryGeneratedColumn('increment') public id: number;
 
 	@Column('varchar', { length: 512 })
@@ -15,5 +16,7 @@ export class Card {
 	@Column('varchar', { length: 512 })
 	public rank: string;
 
-	@Column('int') public collectionCardId: number;
+	@OneToOne(() => CollectionCard)
+	@JoinColumn()
+	public collectionCardId: number;
 }

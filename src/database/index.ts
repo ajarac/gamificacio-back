@@ -1,6 +1,6 @@
-import { School } from './../models/school';
-import { DatabaseConfiguration } from './index';
 import { Connection, createConnection } from 'typeorm';
+import { DatabaseConfiguration } from './index';
+import { MODELS } from './../models/index';
 
 export interface DatabaseConfiguration {
 	type: 'mysql';
@@ -33,7 +33,7 @@ export class DatabaseProvider {
 			password,
 			database,
 			extra: { ssl },
-			entities: [ School ],
+			entities: MODELS,
 			synchronize: true // DO NOT USE IN PRODUCTION
 		});
 		return DatabaseProvider.connection;

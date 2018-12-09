@@ -1,9 +1,9 @@
 import { Avatar } from './avatar';
-import { Entity, PrimaryGeneratedColumn, Column, OneToOne, JoinColumn } from 'typeorm';
+import { Entity, PrimaryGeneratedColumn, Column, OneToOne, JoinColumn, BaseEntity } from 'typeorm';
 import { School } from './school';
 
 @Entity()
-export class Teacher {
+export class Teacher extends BaseEntity {
 	@PrimaryGeneratedColumn('increment') public id: number;
 
 	@Column('varchar', { length: 512 })
@@ -40,11 +40,11 @@ export class Teacher {
 
 	@Column('datetime') public lastUpdate: Date;
 
-	@OneToOne(() => School, (school) => school.id)
+	@OneToOne(() => School)
 	@JoinColumn()
 	public schoolId: number;
 
-	@OneToOne(() => Avatar, (avatar) => avatar.id)
+	@OneToOne(() => Avatar)
 	@JoinColumn()
 	public avatarId: number;
 }

@@ -1,16 +1,16 @@
 import { CorrectAnswer } from './correct-answer';
 import { Question } from './question';
-import { Entity, PrimaryGeneratedColumn, OneToOne, JoinColumn } from 'typeorm';
+import { Entity, PrimaryGeneratedColumn, OneToOne, JoinColumn, BaseEntity } from 'typeorm';
 
 @Entity()
-export class QuestionCorrectAnswer {
+export class QuestionCorrectAnswer extends BaseEntity {
 	@PrimaryGeneratedColumn('increment') public id: number;
 
-	@OneToOne(() => Question, (question) => question.id)
+	@OneToOne(() => Question)
 	@JoinColumn()
 	public questionId: number;
 
-	@OneToOne(() => CorrectAnswer, (correctAnswer) => correctAnswer.id)
+	@OneToOne(() => CorrectAnswer)
 	@JoinColumn()
 	public correctAnswerId: number;
 }

@@ -1,10 +1,15 @@
-import { Entity, PrimaryGeneratedColumn, Column } from 'typeorm';
+import { Entity, PrimaryGeneratedColumn, OneToOne, JoinColumn, BaseEntity } from 'typeorm';
+import { Badge, Student } from '.';
 
 @Entity()
-export class BadgeStudent {
-  @PrimaryGeneratedColumn('increment') public id: number;
-  
-  @Column('int') public badgeId: number;
+export class BadgeStudent extends BaseEntity {
+	@PrimaryGeneratedColumn('increment') public id: number;
 
-  @Column('int') public studentId: number;
+	@OneToOne(() => Badge)
+	@JoinColumn()
+	public badgeId: number;
+
+	@OneToOne(() => Student)
+	@JoinColumn()
+	public studentId: number;
 }

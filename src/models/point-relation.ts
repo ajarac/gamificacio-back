@@ -1,25 +1,28 @@
 import { School } from './school';
 import { Group } from './group';
-import { Entity, PrimaryGeneratedColumn, Column, OneToOne, JoinColumn } from 'typeorm';
+import { Entity, PrimaryGeneratedColumn, Column, OneToOne, JoinColumn, BaseEntity } from 'typeorm';
 import { Point } from './point';
+import { Student } from './student';
 
 @Entity()
-export class PointRelation {
+export class PointRelation extends BaseEntity {
 	@PrimaryGeneratedColumn('increment') public id: number;
 
 	@Column('int') public value: number;
 
-	@OneToOne(() => Point, (point) => point.id)
+	@OneToOne(() => Point)
 	@JoinColumn()
 	public pointId: number;
 
-	@OneToOne(() => Group, (group) => group.id)
+	@OneToOne(() => Group)
 	@JoinColumn()
 	public groupId: number;
 
-	@OneToOne(() => School, (school) => school.id)
+	@OneToOne(() => School)
 	@JoinColumn()
 	public schoolId: number;
 
-	@Column('int') public studentId: number;
+	@OneToOne(() => Student)
+	@JoinColumn()
+	public studentId: number;
 }

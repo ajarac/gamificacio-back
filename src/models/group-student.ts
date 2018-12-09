@@ -1,13 +1,16 @@
+import { Student } from './student';
 import { Group } from './group';
-import { Entity, PrimaryGeneratedColumn, OneToOne, JoinColumn, Column } from 'typeorm';
+import { Entity, PrimaryGeneratedColumn, OneToOne, JoinColumn, BaseEntity } from 'typeorm';
 
 @Entity()
-export class GroupStudent {
+export class GroupStudent extends BaseEntity{
 	@PrimaryGeneratedColumn('increment') public id: number;
 
-	@OneToOne(() => Group, (group) => group.id)
+	@OneToOne(() => Group)
 	@JoinColumn()
 	public groupId: number;
 
-	@Column('int') public studentId: number;
+	@OneToOne(() => Student)
+	@JoinColumn()
+	public studentId: number;
 }

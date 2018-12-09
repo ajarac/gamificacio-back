@@ -1,7 +1,7 @@
-import { Entity, PrimaryGeneratedColumn, Column } from 'typeorm';
+import { Entity, PrimaryGeneratedColumn, Column, BaseEntity } from 'typeorm';
 
 @Entity()
-export class Role {
+export class Role extends BaseEntity {
 	@PrimaryGeneratedColumn('increment') public id: number;
 
 	@Column('varchar', { length: 512 })

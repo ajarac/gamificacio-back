@@ -1,13 +1,16 @@
 import { Point } from './point';
-import { Entity, PrimaryGeneratedColumn, OneToOne, JoinColumn, Column } from 'typeorm';
+import { Entity, PrimaryGeneratedColumn, OneToOne, JoinColumn, Column, BaseEntity } from 'typeorm';
+import { Student } from './student';
 
 @Entity()
-export class PointStudent {
+export class PointStudent extends BaseEntity {
 	@PrimaryGeneratedColumn('increment') public id: number;
 
-	@OneToOne(() => Point, (point) => point.id)
+	@OneToOne(() => Point)
 	@JoinColumn()
 	public pointId: number;
 
-	@Column('int') public studentId: number;
+	@OneToOne(() => Student)
+	@JoinColumn()
+	public studentId: number;
 }

@@ -1,16 +1,16 @@
 import { Answer } from './answer';
 import { Question } from './question';
-import { Entity, PrimaryGeneratedColumn, OneToOne, JoinColumn } from 'typeorm';
+import { Entity, PrimaryGeneratedColumn, OneToOne, JoinColumn, BaseEntity } from 'typeorm';
 
 @Entity()
-export class QuestionAnswer {
+export class QuestionAnswer extends BaseEntity {
 	@PrimaryGeneratedColumn('increment') public id: number;
 
-	@OneToOne(() => Question, (question) => question.id)
+	@OneToOne(() => Question)
 	@JoinColumn()
 	public questionId: number;
 
-	@OneToOne(() => Answer, (answer) => answer.id)
+	@OneToOne(() => Answer)
 	@JoinColumn()
 	public answerId: number;
 }

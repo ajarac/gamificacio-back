@@ -1,11 +1,11 @@
 import { Card } from './card';
-import { Entity, PrimaryGeneratedColumn, Column, JoinColumn, OneToOne } from 'typeorm';
+import { Entity, PrimaryGeneratedColumn, JoinColumn, OneToOne, BaseEntity } from 'typeorm';
 
 @Entity()
-export class CardStudent {
+export class CardStudent extends BaseEntity {
 	@PrimaryGeneratedColumn('increment') public id: number;
-
-	@OneToOne(() => Card, (card) => card.id)
+	
+	@OneToOne(() => Card)
 	@JoinColumn()
 	public cardId: number;
 }

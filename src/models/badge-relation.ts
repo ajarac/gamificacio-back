@@ -1,16 +1,28 @@
-import { Entity, PrimaryGeneratedColumn, Column } from 'typeorm';
+import { Entity, PrimaryGeneratedColumn, Column, JoinColumn, OneToOne, BaseEntity } from 'typeorm';
+import { Student } from './student';
+import { School } from './school';
+import { Group } from './group';
+import { Badge } from './badge';
 
 @Entity()
-export class BadgeRelation {
+export class BadgeRelation extends BaseEntity {
 	@PrimaryGeneratedColumn('increment') public id: number;
 
 	@Column('int') public value: number;
 
-	@Column('int') public badgeId: number;
+	@OneToOne(() => Badge)
+	@JoinColumn()
+	public badgeId: number;
 
-	@Column('int') public groupId: number;
+	@OneToOne(() => Group)
+	@JoinColumn()
+	public groupId: number;
 
-	@Column('int') public schoolId: number;
+	@OneToOne(() => School)
+	@JoinColumn()
+	public schoolId: number;
 
-	@Column('int') public studentId: number;
+	@OneToOne(() => Student)
+	@JoinColumn()
+	public studentId: number;
 }

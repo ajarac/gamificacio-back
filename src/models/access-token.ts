@@ -1,7 +1,8 @@
-import { Entity, PrimaryColumn, Column } from 'typeorm';
+import { Entity, PrimaryColumn, Column, OneToOne, JoinColumn, BaseEntity } from 'typeorm';
+import { User } from './user';
 
 @Entity()
-export class AccessToken {
+export class AccessToken extends BaseEntity {
 	@PrimaryColumn('varchar', { length: 255 })
 	public id: string;
 
@@ -9,5 +10,7 @@ export class AccessToken {
 
 	@Column('datetime') public created: any;
 
-	@Column('int') public userId: number;
+	@OneToOne(() => User)
+	@JoinColumn()
+	public userId: number;
 }

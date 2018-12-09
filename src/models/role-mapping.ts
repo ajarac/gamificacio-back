@@ -1,8 +1,8 @@
-import { Entity, PrimaryGeneratedColumn, Column, OneToOne, JoinColumn } from 'typeorm';
+import { Entity, PrimaryGeneratedColumn, Column, OneToOne, JoinColumn, BaseEntity } from 'typeorm';
 import { Role } from './role';
 
 @Entity()
-export class RoleMapping {
+export class RoleMapping extends BaseEntity {
 	@PrimaryGeneratedColumn('increment') public id: number;
 
 	@Column('varchar', { length: 512 })
@@ -11,7 +11,7 @@ export class RoleMapping {
 	@Column('varchar', { length: 255 })
 	public principalId: string;
 
-	@OneToOne(() => Role, (role) => role.id)
+	@OneToOne(() => Role)
 	@JoinColumn()
 	public roleId: number;
 }

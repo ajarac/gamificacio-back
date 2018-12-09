@@ -1,7 +1,7 @@
-import { Entity, PrimaryGeneratedColumn, Column } from 'typeorm';
+import { Entity, PrimaryGeneratedColumn, Column, BaseEntity } from 'typeorm';
 
 @Entity()
-export class User {
+export class User extends BaseEntity {
 	@PrimaryGeneratedColumn() public id: number;
 
 	@Column('varchar', { length: 512 })
@@ -20,7 +20,7 @@ export class User {
 	@Column('varchar', { length: 512 })
 	public email: string;
 
-	@Column('tinyint') public emailVerified: string;
+	@Column('tinyint') public emailVerified: boolean;
 
 	@Column('varchar', { length: 512 })
 	public verificationToken: string;

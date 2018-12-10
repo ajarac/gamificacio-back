@@ -1,5 +1,5 @@
 import { Question } from './question';
-import { Entity, PrimaryGeneratedColumn, Column, OneToOne, JoinColumn, BaseEntity } from 'typeorm';
+import { Entity, PrimaryGeneratedColumn, Column, OneToOne, JoinColumn, BaseEntity, ManyToOne } from 'typeorm';
 
 @Entity()
 export class Answer extends BaseEntity {
@@ -8,7 +8,6 @@ export class Answer extends BaseEntity {
 	@Column('varchar', { length: 512 })
 	public name: string;
 
-	@OneToOne(() => Question)
-	@JoinColumn()
-	public questionId: number;
+	@ManyToOne(() => Question, (question) => question.answers)
+	public question: Question;
 }

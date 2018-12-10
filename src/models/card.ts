@@ -1,5 +1,6 @@
+import { Student } from './student';
 import { CollectionCard } from './collection-card';
-import { Entity, PrimaryGeneratedColumn, Column, OneToOne, JoinColumn, BaseEntity } from 'typeorm';
+import { Entity, PrimaryGeneratedColumn, Column, BaseEntity, ManyToOne, ManyToMany } from 'typeorm';
 
 @Entity()
 export class Card extends BaseEntity {
@@ -16,7 +17,9 @@ export class Card extends BaseEntity {
 	@Column('varchar', { length: 512 })
 	public rank: string;
 
-	@OneToOne(() => CollectionCard)
-	@JoinColumn()
-	public collectionCardId: number;
+	@ManyToOne(() => CollectionCard, (cCard) => cCard.cards)
+	public collectionCard: CollectionCard;
+
+	@ManyToMany(() => Student, (student) => student.cards)
+	public students: Student[];
 }

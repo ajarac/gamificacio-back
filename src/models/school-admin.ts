@@ -1,5 +1,5 @@
 import { Avatar } from './avatar';
-import { Entity, PrimaryGeneratedColumn, Column, OneToOne, JoinColumn, BaseEntity } from 'typeorm';
+import { Entity, PrimaryGeneratedColumn, Column, OneToOne, BaseEntity, ManyToOne } from 'typeorm';
 import { School } from './school';
 
 @Entity()
@@ -40,11 +40,9 @@ export class SchoolAdmin extends BaseEntity {
 
 	@Column('datetime') public lastUpdate: Date;
 
-	@OneToOne(() => School)
-	@JoinColumn()
-	public schoolId: number;
+	@OneToOne(() => School, (school) => school.schoolAdmin)
+	public school: School;
 
-	@OneToOne(() => Avatar)
-	@JoinColumn()
-	public avatarId: number;
+	@ManyToOne(() => Avatar, (avatar) => avatar.schoolAdmins)
+	public avatar: Avatar;
 }

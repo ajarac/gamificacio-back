@@ -1,6 +1,7 @@
+import { Student } from './student';
 import { Teacher } from './teacher';
 import { School } from './school';
-import { Entity, PrimaryGeneratedColumn, Column, OneToOne, JoinColumn, BaseEntity } from 'typeorm';
+import { Entity, PrimaryGeneratedColumn, Column, BaseEntity, ManyToOne, ManyToMany } from 'typeorm';
 
 @Entity()
 export class Badge extends BaseEntity {
@@ -13,11 +14,12 @@ export class Badge extends BaseEntity {
 
 	@Column('int') public value: number;
 
-	@OneToOne(() => School)
-	@JoinColumn()
-	public schoolId: number;
-	
-	@OneToOne(() => Teacher)
-	@JoinColumn()
-	public teacherId: number;
+	@ManyToOne(() => School, (school) => school.badges)
+	public school: School;
+
+	@ManyToOne(() => Teacher, (teacher) => teacher.badges)
+	public teacher: Teacher;
+
+	@ManyToMany(() => Student, (student) => student.badges)
+	public students: Student[];
 }

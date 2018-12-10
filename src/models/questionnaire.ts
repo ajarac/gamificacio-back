@@ -1,6 +1,8 @@
+import { Question } from './question';
 import { Student } from './student';
 import { Teacher } from './teacher';
-import { Entity, PrimaryGeneratedColumn, Column, OneToOne, JoinColumn, BaseEntity } from 'typeorm';
+import { Entity, PrimaryGeneratedColumn, Column, BaseEntity, OneToMany, ManyToOne, OneToOne } from 'typeorm';
+import { ResultQuestionnaire } from './resultQuestionnaire';
 
 @Entity()
 export class Questionnaire extends BaseEntity {
@@ -23,11 +25,15 @@ export class Questionnaire extends BaseEntity {
 
 	@Column('tinyint') public active: boolean;
 
-	@OneToOne(() => Teacher)
-	@JoinColumn()
-	public teacherId: number;
+	@OneToMany(() => Question, (question) => question.questionnaire)
+	public questions: Question[];
 
-	@OneToOne(() => Student)
-	@JoinColumn()
-	public studentId: number;
+	@ManyToOne(() => Teacher, (teacher) => teacher.questionnaires)
+	public teacher: Teacher;
+
+	@ManyToOne(() => Student, (student) => student.questionnaires)
+	public student: Student;
+
+	@OneToOne(() => ResultQuestionnaire, (r) => r.questionnaire)
+	public result: ResultQuestionnaire;
 }

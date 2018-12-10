@@ -1,14 +1,9 @@
 import { Questionnaire } from './questionnaire';
-import { Entity, PrimaryGeneratedColumn, Column, OneToOne, JoinColumn, BaseEntity } from 'typeorm';
-import { Student } from './student';
+import { Entity, PrimaryGeneratedColumn, Column, OneToOne, BaseEntity } from 'typeorm';
 
 @Entity()
 export class ResultQuestionnaire extends BaseEntity {
 	@PrimaryGeneratedColumn('increment') public id: number;
-
-	@Column('text') public questionnaire: string;
-
-	@Column('text') public student: string;
 
 	@Column('varchar', { length: 512 })
 	public questionnaireName: string;
@@ -24,11 +19,9 @@ export class ResultQuestionnaire extends BaseEntity {
 	@Column('varchar', { length: 512 })
 	public dataAnswers: string;
 
-	@OneToOne(() => Questionnaire)
-	@JoinColumn()
-	public questionnaireId: number;
+	@OneToOne(() => Questionnaire, (q) => q.result) 
+	public questionnaire: Questionnaire;
 
-	@OneToOne(() => Student)
-	@JoinColumn()
-	public studentId: number;
+	// @OneToOne(() => Student , (student) => student.resultQuestionnaires)
+
 }

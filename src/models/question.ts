@@ -1,5 +1,7 @@
 import { Questionnaire } from './questionnaire';
-import { Entity, PrimaryGeneratedColumn, Column, OneToOne, JoinColumn, BaseEntity } from 'typeorm';
+import { CorrectAnswer } from './correct-answer';
+import { Answer } from './answer';
+import { Entity, PrimaryGeneratedColumn, Column, BaseEntity, OneToMany, ManyToOne } from 'typeorm';
 
 @Entity()
 export class Question extends BaseEntity {
@@ -15,7 +17,12 @@ export class Question extends BaseEntity {
 
 	@Column('int') public time: number;
 
-	@OneToOne(() => Questionnaire)
-	@JoinColumn()
-	public questionnaireId: number;
+	@OneToMany(() => Answer, (answer) => answer.question)
+	public answers: Answer[];
+
+	@OneToMany(() => CorrectAnswer, (correctAnswer) => correctAnswer.question)
+	public correctAnswers: CorrectAnswer[];
+
+	@ManyToOne(() => Questionnaire, (questionnaire) => questionnaire.questions)
+	public questionnaire: Questionnaire
 }

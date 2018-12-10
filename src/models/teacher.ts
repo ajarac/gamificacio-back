@@ -1,6 +1,11 @@
 import { Avatar } from './avatar';
-import { Entity, PrimaryGeneratedColumn, Column, OneToOne, JoinColumn, BaseEntity } from 'typeorm';
 import { School } from './school';
+import { Questionnaire } from './questionnaire';
+import { Point } from './point';
+import { CollectionCard } from './collection-card';
+import { Badge } from './badge';
+import { Entity, PrimaryGeneratedColumn, Column, BaseEntity, OneToMany, ManyToMany, ManyToOne } from 'typeorm';
+import { Group } from './group';
 
 @Entity()
 export class Teacher extends BaseEntity {
@@ -40,11 +45,24 @@ export class Teacher extends BaseEntity {
 
 	@Column('datetime') public lastUpdate: Date;
 
-	@OneToOne(() => School)
-	@JoinColumn()
-	public schoolId: number;
+	@OneToMany(() => Badge, (badge) => badge.teacher)
+	public badges: Badge[];
 
-	@OneToOne(() => Avatar)
-	@JoinColumn()
-	public avatarId: number;
+	@ManyToMany(() => CollectionCard, (cCard) => cCard.teachers)
+	public collectionCards: CollectionCard[];
+
+	@OneToMany(() => Group, (group) => group.teacher)
+	public groups: Group[];
+
+	@OneToMany(() => Point, (point) => point.teacher)
+	public points: Point[];
+
+	@OneToMany(() => Questionnaire, (q) => q.teacher)
+	public questionnaires: Questionnaire[];
+
+	@ManyToOne(() => School, (school) => school.teachers)
+	public school: School;
+
+	@ManyToOne(() => Avatar, (avatar) => avatar.teachers)
+	public avatar: Avatar;
 }

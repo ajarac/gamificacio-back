@@ -1,7 +1,9 @@
-import { Teacher } from './teacher';
 import { Matter } from './matter';
+import { Student } from './student';
+import { Teacher } from './teacher';
+import { CollectionCard } from './collection-card';
+import { Entity, PrimaryGeneratedColumn, Column, BaseEntity, ManyToMany, ManyToOne } from 'typeorm';
 import { Grade } from './grade';
-import { Entity, PrimaryGeneratedColumn, Column, OneToOne, JoinColumn, BaseEntity } from 'typeorm';
 
 @Entity()
 export class Group extends BaseEntity {
@@ -10,15 +12,18 @@ export class Group extends BaseEntity {
 	@Column('varchar', { length: 512 })
 	public name: string;
 
-	@OneToOne(() => Teacher)
-	@JoinColumn()
-	public teacherId: number;
+	@ManyToMany(() => CollectionCard, (cCard) => cCard.groups)
+	public collectionCards: CollectionCard[];
 
-	@OneToOne(() => Grade)
-	@JoinColumn()
-	public gradeId: number;
+	@ManyToOne(() => Grade, (grade) => grade.groups)
+	public grade: Grade;
 
-	@OneToOne(() => Matter)
-	@JoinColumn()
-	public matterId: number;
+	@ManyToOne(() => Teacher, (teacher) => teacher.groups)
+	public teacher: Teacher;
+
+	@ManyToMany(() => Student, (student) => student.groups)
+	public students: Student[];
+
+	@ManyToOne(() => Matter, (matter) => matter.groups)
+	public matter: Matter;
 }

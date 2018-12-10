@@ -1,4 +1,9 @@
-import { Entity, PrimaryGeneratedColumn, Column, BaseEntity } from 'typeorm';
+import { Student } from './student';
+import { SchoolAdmin } from './school-admin';
+import { Point } from './point';
+import { Entity, PrimaryGeneratedColumn, Column, BaseEntity, OneToMany, OneToOne } from 'typeorm';
+import { Badge } from './badge';
+import { Teacher } from './teacher';
 
 @Entity()
 export class School extends BaseEntity {
@@ -44,4 +49,19 @@ export class School extends BaseEntity {
 
 	@Column('varchar', { length: 512 })
 	public description: string;
+
+	@OneToMany(() => Badge, (badge) => badge.school)
+	public badges: Badge[];
+
+	@OneToMany(() => Point, (point) => point.school)
+	public points: Point[];
+
+	@OneToOne(() => SchoolAdmin, (schoolAdmin) => schoolAdmin.school)
+	public schoolAdmin: SchoolAdmin;
+
+	@OneToMany(() => Student, (student) => student.school)
+	public students: Student[];
+
+	@OneToMany(() => Teacher, (teacher) => teacher.school)
+	public teachers: Teacher[];
 }

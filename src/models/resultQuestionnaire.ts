@@ -1,9 +1,22 @@
 import { Questionnaire } from './questionnaire';
-import { Entity, PrimaryGeneratedColumn, Column, OneToOne, BaseEntity } from 'typeorm';
+import { Entity, Column, OneToOne } from 'typeorm';
+import { CustomEntity } from './custom-entity';
+
+export interface IResultQuestionnaire {
+	id?: number;
+	questionnaireName: string;
+	numTotalQuestions: number;
+	numAnswerCorrect: number;
+	numAnswerNoCorrect: number;
+	finalNode: number;
+	dataAnswers: number;
+}
 
 @Entity()
-export class ResultQuestionnaire extends BaseEntity {
-	@PrimaryGeneratedColumn('increment') public id: number;
+export class ResultQuestionnaire extends CustomEntity {
+	constructor(resultQ) {
+		super(resultQ);
+	}
 
 	@Column('varchar', { length: 512 })
 	public questionnaireName: string;
@@ -19,9 +32,6 @@ export class ResultQuestionnaire extends BaseEntity {
 	@Column('varchar', { length: 512 })
 	public dataAnswers: string;
 
-	@OneToOne(() => Questionnaire, (q) => q.result) 
+	@OneToOne(() => Questionnaire, (q) => q.result)
 	public questionnaire: Questionnaire;
-
-	// @OneToOne(() => Student , (student) => student.resultQuestionnaires)
-
 }

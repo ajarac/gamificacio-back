@@ -1,9 +1,18 @@
 import { Question } from './question';
-import { Entity, PrimaryGeneratedColumn, Column, OneToOne, JoinColumn, BaseEntity, ManyToOne } from 'typeorm';
+import { Entity, Column, ManyToOne } from 'typeorm';
+import { CustomEntity } from './custom-entity';
+
+export interface IAnswer {
+	id?: number;
+	name: string;
+}
+
 
 @Entity()
-export class Answer extends BaseEntity {
-	@PrimaryGeneratedColumn('increment') public id: number;
+export class Answer extends CustomEntity {
+	constructor(answer: IAnswer) {
+		super(answer);
+	}
 
 	@Column('varchar', { length: 512 })
 	public name: string;

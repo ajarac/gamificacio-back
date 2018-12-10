@@ -1,13 +1,23 @@
 import { Card } from './card';
-import { Badge } from './badge';
-import { Entity, PrimaryGeneratedColumn, Column, BaseEntity, OneToMany, ManyToMany } from 'typeorm';
+import { Entity, Column, OneToMany, ManyToMany } from 'typeorm';
 import { Teacher } from './teacher';
 import { Student } from './student';
 import { Group } from './group';
+import { CustomEntity } from './custom-entity';
+
+export interface ICollectionCard {
+	id?: number;
+	name: string;
+	image: string;
+	num: string;
+	createdBy: string;
+}
 
 @Entity()
-export class CollectionCard extends BaseEntity {
-	@PrimaryGeneratedColumn('increment') public id: number;
+export class CollectionCard extends CustomEntity {
+	constructor(cCard: ICollectionCard) {
+		super(cCard);
+	}
 
 	@Column('varchar', { length: 512 })
 	public name: string;
@@ -27,8 +37,8 @@ export class CollectionCard extends BaseEntity {
 	public teachers: Teacher[];
 
 	@ManyToMany(() => Student, (student) => student.collectionCards)
-	public students: Student[]
+	public students: Student[];
 
 	@ManyToMany(() => Group, (group) => group.collectionCards)
-	public groups: Group[]
+	public groups: Group[];
 }

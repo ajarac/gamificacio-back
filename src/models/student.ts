@@ -2,49 +2,18 @@ import { Questionnaire } from './questionnaire';
 import { Point } from './point';
 import { CollectionCard } from './collection-card';
 import { Avatar } from './avatar';
-import { Entity, PrimaryGeneratedColumn, Column, BaseEntity, ManyToOne, OneToMany, ManyToMany } from 'typeorm';
+import { Entity, ManyToOne, OneToMany, ManyToMany } from 'typeorm';
 import { School } from './school';
 import { Badge } from './badge';
 import { Card } from './card';
 import { Group } from './group';
+import { User, IUser } from './user';
 
 @Entity()
-export class Student extends BaseEntity {
-	@PrimaryGeneratedColumn('increment') public id: number;
-
-	@Column('varchar', { length: 512 })
-	public name: string;
-
-	@Column('varchar', { length: 512 })
-	public surname: string;
-
-	@Column('varchar', { length: 512 })
-	public realm: string;
-
-	@Column('varchar', { length: 512 })
-	public username: string;
-
-	@Column('varchar', { length: 512 })
-	public password: string;
-
-	@Column('text') public credentials: string;
-
-	@Column('text') public challenges: string;
-
-	@Column('varchar', { length: 512 })
-	public email: string;
-
-	@Column('tinyint') public emailVerified: boolean;
-
-	@Column('varchar', { length: 512 })
-	public verificationToken: string;
-
-	@Column('varchar', { length: 512 })
-	public status: string;
-
-	@Column('datetime') public created: Date;
-
-	@Column('datetime') public lastUpdate: Date;
+export class Student extends User {
+	constructor(student: IUser) {
+		super(student);
+	}
 
 	@ManyToOne(() => Avatar, (avatar) => avatar.students)
 	public avatar: Avatar;

@@ -1,11 +1,22 @@
 import { Questionnaire } from './questionnaire';
 import { CorrectAnswer } from './correct-answer';
 import { Answer } from './answer';
-import { Entity, PrimaryGeneratedColumn, Column, BaseEntity, OneToMany, ManyToOne } from 'typeorm';
+import { Entity, Column, OneToMany, ManyToOne } from 'typeorm';
+import { CustomEntity } from './custom-entity';
+
+export interface IQuestion {
+	id?: number;
+	name: string;
+	type: string;
+	image: string;
+	time: number;
+}
 
 @Entity()
-export class Question extends BaseEntity {
-	@PrimaryGeneratedColumn('increment') public id: number;
+export class Question extends CustomEntity {
+	constructor(question) {
+		super(question);
+	}
 
 	@Column('varchar', { length: 512 })
 	public name: string;
@@ -24,5 +35,5 @@ export class Question extends BaseEntity {
 	public correctAnswers: CorrectAnswer[];
 
 	@ManyToOne(() => Questionnaire, (questionnaire) => questionnaire.questions)
-	public questionnaire: Questionnaire
+	public questionnaire: Questionnaire;
 }

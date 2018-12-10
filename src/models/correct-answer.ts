@@ -1,9 +1,17 @@
 import { Question } from './question';
-import { Entity, PrimaryGeneratedColumn, Column, OneToOne, JoinColumn, BaseEntity, ManyToOne } from 'typeorm';
+import { Entity, Column, ManyToOne } from 'typeorm';
+import { CustomEntity } from './custom-entity';
+
+export interface ICorrectAnswer {
+	id?: number;
+	name: string;
+}
 
 @Entity()
-export class CorrectAnswer extends BaseEntity {
-	@PrimaryGeneratedColumn('increment') public id: number;
+export class CorrectAnswer extends CustomEntity {
+	constructor(correctAnswer: ICorrectAnswer) {
+		super(correctAnswer);
+	}
 
 	@Column('varchar', { length: 512 })
 	public name: string;

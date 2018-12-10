@@ -1,11 +1,21 @@
 import { Student } from './student';
 import { Teacher } from './teacher';
 import { School } from './school';
-import { Entity, PrimaryGeneratedColumn, Column, BaseEntity, ManyToOne } from 'typeorm';
+import { Entity, Column, ManyToOne } from 'typeorm';
+import { CustomEntity } from './custom-entity';
+
+export interface IPoint {
+	id?: number;
+	name: string;
+	image: string;
+	value: number;
+}
 
 @Entity()
-export class Point extends BaseEntity {
-	@PrimaryGeneratedColumn('increment') public id: number;
+export class Point extends CustomEntity {
+	constructor(point: IPoint) {
+		super(point);
+	}
 
 	@Column('varchar', { length: 512 })
 	public name: string;
@@ -19,7 +29,7 @@ export class Point extends BaseEntity {
 
 	@ManyToOne(() => Teacher, (teacher) => teacher.points)
 	public teacher: Teacher;
-	
+
 	@ManyToOne(() => Student, (student) => student.points)
 	public student: Teacher;
 }

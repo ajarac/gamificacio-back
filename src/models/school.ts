@@ -1,13 +1,35 @@
 import { Student } from './student';
 import { SchoolAdmin } from './school-admin';
 import { Point } from './point';
-import { Entity, PrimaryGeneratedColumn, Column, BaseEntity, OneToMany, OneToOne } from 'typeorm';
+import { Entity, Column, OneToMany, OneToOne } from 'typeorm';
 import { Badge } from './badge';
 import { Teacher } from './teacher';
+import { CustomEntity } from './custom-entity';
+
+export interface ISchool {
+	id?: number;
+	name: string;
+	address: string;
+	image: string;
+	imageBig: string;
+	zipCode: string;
+	city: string;
+	country: string;
+	latitude: string;
+	longitude: string;
+	cif: string;
+	phone: string;
+	website: string;
+	facebook: string;
+	twitter: string;
+	description: string;
+}
 
 @Entity()
-export class School extends BaseEntity {
-	@PrimaryGeneratedColumn('increment') public id: number;
+export class School extends CustomEntity {
+	constructor(school: ISchool) {
+		super(school);
+	}
 
 	@Column('varchar', { length: 512 })
 	public name: string;

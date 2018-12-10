@@ -4,46 +4,15 @@ import { Questionnaire } from './questionnaire';
 import { Point } from './point';
 import { CollectionCard } from './collection-card';
 import { Badge } from './badge';
-import { Entity, PrimaryGeneratedColumn, Column, BaseEntity, OneToMany, ManyToMany, ManyToOne } from 'typeorm';
+import { Entity, OneToMany, ManyToMany, ManyToOne } from 'typeorm';
 import { Group } from './group';
+import { User, IUser } from './user';
 
 @Entity()
-export class Teacher extends BaseEntity {
-	@PrimaryGeneratedColumn('increment') public id: number;
-
-	@Column('varchar', { length: 512 })
-	public name: string;
-
-	@Column('varchar', { length: 512 })
-	public surname: string;
-
-	@Column('varchar', { length: 512 })
-	public realm: string;
-
-	@Column('varchar', { length: 512 })
-	public username: string;
-
-	@Column('varchar', { length: 512 })
-	public password: string;
-
-	@Column('text') public credentials: string;
-
-	@Column('text') public challenges: string;
-
-	@Column('varchar', { length: 512 })
-	public email: string;
-
-	@Column('tinyint') public emailVerified: boolean;
-
-	@Column('varchar', { length: 512 })
-	public verificationToken: string;
-
-	@Column('varchar', { length: 512 })
-	public status: string;
-
-	@Column('datetime') public created: Date;
-
-	@Column('datetime') public lastUpdate: Date;
+export class Teacher extends User {
+	constructor(teacher: IUser) {
+		super(teacher);
+	}
 
 	@OneToMany(() => Badge, (badge) => badge.teacher)
 	public badges: Badge[];

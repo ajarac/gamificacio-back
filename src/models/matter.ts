@@ -1,10 +1,18 @@
 import { Group } from './group';
-import { Entity, PrimaryGeneratedColumn, Column, BaseEntity, ManyToMany, OneToMany } from 'typeorm';
+import { Entity, Column, ManyToMany, OneToMany } from 'typeorm';
 import { Grade } from './grade';
+import { CustomEntity } from './custom-entity';
+
+export interface IMatter {
+	id?: number;
+	name: string;
+}
 
 @Entity()
-export class Matter extends BaseEntity {
-	@PrimaryGeneratedColumn('increment') public id: number;
+export class Matter extends CustomEntity {
+	constructor(matter: IMatter) {
+		super(matter);
+	}
 
 	@Column('varchar', { length: 512 })
 	public name: string;

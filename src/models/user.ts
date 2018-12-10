@@ -1,8 +1,25 @@
-import { Entity, PrimaryGeneratedColumn, Column, BaseEntity } from 'typeorm';
+import { Column } from 'typeorm';
+import { CustomEntity } from './custom-entity';
 
-@Entity()
-export class User extends BaseEntity {
-	@PrimaryGeneratedColumn() public id: number;
+export class IUser {
+	id?: number;
+	realm: string;
+	username: string;
+	password: string;
+	credentials: string;
+	challenges: string;
+	email: string;
+	emailVerified: boolean;
+	verificationToken: string;
+	status: string;
+	created: Date;
+	lastUpdated: Date;
+}
+
+export abstract class User extends CustomEntity {
+	constructor(user: IUser) {
+		super(user);
+	}
 
 	@Column('varchar', { length: 512 })
 	public realm: string;
@@ -28,7 +45,7 @@ export class User extends BaseEntity {
 	@Column('varchar', { length: 512 })
 	public status: string;
 
-	@Column('datetime') public created: string;
+	@Column('datetime') public created: Date;
 
-	@Column('datetime') public lastUpdated: string;
+	@Column('datetime') public lastUpdated: Date;
 }

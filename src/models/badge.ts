@@ -1,11 +1,22 @@
 import { Student } from './student';
 import { Teacher } from './teacher';
 import { School } from './school';
-import { Entity, PrimaryGeneratedColumn, Column, BaseEntity, ManyToOne, ManyToMany } from 'typeorm';
+import { Entity, Column, ManyToOne, ManyToMany } from 'typeorm';
+import { CustomEntity } from './custom-entity';
+
+export interface IBadge {
+	id?: number;
+	name: string;
+	image: string;
+	value: number;
+}
 
 @Entity()
-export class Badge extends BaseEntity {
-	@PrimaryGeneratedColumn('increment') public id: number;
+export class Badge extends CustomEntity {
+	
+	constructor(badge: IBadge) {
+		super(badge);
+	}
 
 	@Column('varchar', { length: 512 })
 	public name: string;

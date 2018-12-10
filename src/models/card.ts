@@ -1,10 +1,21 @@
 import { Student } from './student';
 import { CollectionCard } from './collection-card';
-import { Entity, PrimaryGeneratedColumn, Column, BaseEntity, ManyToOne, ManyToMany } from 'typeorm';
+import { Entity, Column, ManyToOne, ManyToMany } from 'typeorm';
+import { CustomEntity } from './custom-entity';
+
+export interface ICard {
+	id?: number;
+	name: string;
+	image: string;
+	ratio: string;
+	rank: string;
+}
 
 @Entity()
-export class Card extends BaseEntity {
-	@PrimaryGeneratedColumn('increment') public id: number;
+export class Card extends CustomEntity {
+	constructor(card: ICard) {
+		super(card);
+	}
 
 	@Column('varchar', { length: 512 })
 	public name: string;
